@@ -1,0 +1,6 @@
+.btn {
+  @apply px-4 py-2 rounded-md flex items-center justify-between shadow-md cursor-pointer;
+  &-primary {
+    @apply bg-blue-500 text-white text-sm font-medium;
+  }
+}

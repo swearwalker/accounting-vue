@@ -1,0 +1,19 @@
+.dialog {
+  @apply bg-white rounded-md z-20;
+
+  &__overlay {
+    @apply fixed z-50 inset-0 flex items-center justify-center;
+  }
+
+  &__bg {
+    @apply absolute inset-0 bg-gray-900 bg-opacity-25 z-10;
+  }
+
+  &__header {
+    @apply flex items-center justify-between px-4 py-2 border-b border-b-gray-200;
+  }
+
+  &__actions {
+    @apply px-4 py-2 border-t border-t-gray-200;
+  }
+}

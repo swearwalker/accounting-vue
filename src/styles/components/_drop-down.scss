@@ -1,0 +1,23 @@
+.drop-down {
+  @apply relative;
+
+  &__btn {
+    @apply flex items-center justify-between rounded-md p-2 text-blue-500 border border-blue-500 w-full;
+  }
+
+  &__label {
+    @apply font-medium text-sm;
+  }
+
+  &__icon {
+    @apply ml-4 transition-all;
+  }
+
+  &__list {
+    @apply absolute top-full rounded-md overflow-hidden w-full shadow-md bg-white z-10;
+  }
+
+  &__item {
+    @apply cursor-pointer text-sm hover:bg-blue-500 hover:text-white px-4 py-2 font-medium transition-all;
+  }
+}
