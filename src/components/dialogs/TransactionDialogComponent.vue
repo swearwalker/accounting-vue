@@ -24,7 +24,7 @@
     </div>
     <div class="form__wrapper mb-4">
       <label class="form__label label">{{ titles.date }}</label>
-      <DatePicker
+      <date-picker-component
         :enable-time-picker="false"
         auto-apply
         v-model="transaction.date"

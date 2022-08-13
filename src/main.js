@@ -5,6 +5,7 @@ import store from './store'
 
 import Toast from 'vue-toastification'
 import Datepicker from '@vuepic/vue-datepicker'
+import DialogComponent from '@/components/ui/Dialog/DialogComponent'
 import DropDownComponent from '@/components/ui/DropDown/DropDownComponent'
 import InputComponent from '@/components/ui/Input/InputComponent'
 import RadioComponent from '@/components/ui/Radio/RadioComponent'
@@ -25,14 +26,13 @@ const app = createApp(App)
 
 library.add(faXmark, faAngleDown, faPlus)
 
+app.component('dialog-component', DialogComponent)
 app.component('drop-down-component', DropDownComponent)
 app.component('input-component', InputComponent)
 app.component('radio-component', RadioComponent)
 app.component('table-component', TableComponent)
-
 app.component('font-awesome-icon', FontAwesomeIcon)
-
-app.component('DatePicker', Datepicker)
+app.component('date-picker-component', Datepicker)
 
 app.directive('click-outside', ClickOutside)
 

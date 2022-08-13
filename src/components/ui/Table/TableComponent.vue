@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper flex flex-col w-full">
-    <label class="title text-4xl font-bold mb-4">{{ props.title }}</label>
+    <h2 class="title text-2xl font-bold mb-2">{{ props.title }}</h2>
     <table
-      class="acc-table table-fixed border-collapse border overflow-x-auto block w-full"
+      class="acc-table table-fixed border-collapse overflow-x-auto block w-full"
     >
       <thead class="acc-table__header">
         <tr class="acc-table__row">
