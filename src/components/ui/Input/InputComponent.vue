@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper flex flex-col">
-    <label class="form__label label">{{ props.label }}</label>
-    <input :type="type" :value="props.modelValue" @input="changeModelValue" class="form__input input" />
+    <label class="form__label label">{{ label }}</label>
+    <input :type="type" :value="modelValue" @input="changeModelValue" class="form__input input" />
   </div>
 </template>
 

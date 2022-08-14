@@ -1,19 +1,21 @@
 <template>
   <form @submit.prevent class="form flex flex-col w-96 p-4">
     <input-component :label="$t('amount')" v-model="transaction.amount" class="mb-4" />
-    <div class="form__wrapper mb-4">
-      <label class="form__label label">{{ $t('category') }}</label>
-      <v-select
-        label="name"
-        :reduce="(category) => category.id"
-        v-model="transaction.categoryId"
-        :options="categories"
-      />
-    </div>
-    <div class="form__wrapper mb-4">
-      <label class="form__label label">{{ $t('amountType') }}</label>
-      <v-select :reduce="(amountType) => amountType.id" v-model="transaction.amountTypeId" :options="amountTypes" />
-    </div>
+    <select-component
+      v-model="transaction.categoryId"
+      class="mb-4"
+      :title="$t('category')"
+      label="name"
+      :options="categories"
+      :reduce="(category) => category.id"
+    />
+    <select-component
+      v-model="transaction.amountTypeId"
+      class="mb-4"
+      :title="$t('amountType')"
+      :options="amountTypes"
+      :reduce="(amountType) => amountType.id"
+    />
     <div class="form__wrapper mb-4">
       <label class="form__label label">{{ $t('date') }}</label>
       <date-picker-component :enable-time-picker="false" auto-apply v-model="transaction.date" format="MM/dd/yyyy" />

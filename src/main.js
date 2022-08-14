@@ -8,13 +8,13 @@ import en from '@/locales/en'
 
 import Toast from 'vue-toastification'
 import Datepicker from '@vuepic/vue-datepicker'
-import vSelect from 'vue-select'
 import BtnComponent from '@/components/ui/Btn/BtnComponent'
 import DialogComponent from '@/components/ui/Dialog/DialogComponent'
 import DropDownComponent from '@/components/ui/DropDown/DropDownComponent'
 import InputComponent from '@/components/ui/Input/InputComponent'
 import RadioComponent from '@/components/ui/Radio/RadioComponent'
 import TableComponent from '@/components/ui/Table/TableComponent'
+import SelectComponent from '@/components/ui/Select/SelectComponent'
 
 import ClickOutside from '@/directives/click-outside'
 
@@ -45,9 +45,9 @@ app.component('drop-down-component', DropDownComponent)
 app.component('input-component', InputComponent)
 app.component('radio-component', RadioComponent)
 app.component('table-component', TableComponent)
+app.component('select-component', SelectComponent)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('date-picker-component', Datepicker)
-app.component('v-select', vSelect)
 
 app.directive('click-outside', ClickOutside)
 
