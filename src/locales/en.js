@@ -2,8 +2,9 @@ export default {
   name: 'Name',
   category: 'Category',
   date: 'Date',
+  dateRange: 'Range of dates',
   amount: 'Amount',
-  categories: 'Category',
+  categories: 'Categories',
   transactionType: 'Transaction Type',
   amountType: 'Amount Type',
   transaction: 'Transaction',
@@ -11,9 +12,12 @@ export default {
   incomeTable: 'Income table',
   costTable: 'Cost table',
   btn: {
+    submit: 'Submit',
+    clear: 'Clear',
     create: 'Create',
     cancel: 'Cancel',
     edit: 'Edit',
+    close: 'Close',
   },
   dialog: {
     category: {

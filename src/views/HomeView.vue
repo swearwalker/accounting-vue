@@ -1,127 +1,90 @@
 <template>
   <main class="main">
     <div class="container">
-      <button
-        @click="openCategoryDialog"
-        class="btn btn-primary self-end bg-blue-500"
-      >
-        {{ titles.category }}
-      </button>
-      <button
-        @click="openTransactionDialog"
-        class="btn btn-primary self-end bg-blue-500"
-      >
-        {{ titles.transaction }}
-      </button>
-      <DatePicker
-        :enable-time-picker="false"
-        auto-apply
-        range
-        :modelValue="dateRange"
-        @update:modelValue="getDatesInRange"
-        format="MM/dd/yyyy"
-      />
-      <ul v-for="category in categories" :key="category.id" class="list">
-        <li class="list__item">
-          <input
-            type="checkbox"
-            :value="category"
-            v-model="checkedCategories"
+      <filter-component class="flex items-end mb-16">
+        <div class="wrapper">
+          <label class="wrapper__label label">{{ $t('dateRange') }}</label>
+          <date-picker-component
+            class="w-72"
+            :enable-time-picker="false"
+            auto-apply
+            range
+            v-model="dateRange"
+            format="MM/dd/yyyy"
           />
-          <label class="list__label">{{ category.name }}</label>
-        </li>
-      </ul>
-      <DialogComponent
-        :title="titles.dialog.category.create"
-        v-if="showingCategoryDialog"
-        @close="closeCategoryDialog"
-      >
-        <CategoryDialogComponent @close="closeAfterCreateCategory" />
-      </DialogComponent>
-      <DialogComponent
-        :title="titles.dialog.transaction.create"
-        v-if="showingTransactionDialog"
-        @close="closeTransactionDialog"
-      >
-        <TransactionDialogComponent @close="closeAfterCreateTransaction" />
-      </DialogComponent>
-      <ul class="list flex flex-col">
-        <li class="list__item font-bold">{{ titles.categories }}</li>
-        <li
-          v-for="category in categories"
-          :key="category.id"
-          class="list__item"
-        >
-          {{ category }}
-        </li>
-      </ul>
-      <ul class="list flex flex-col">
-        <li class="list__item font-bold">{{ titles.transactions }}</li>
-        <li
-          v-for="transaction in transactions"
-          :key="transaction.id"
-          class="list__item"
-        >
-          {{ transaction }}
-        </li>
-      </ul>
-      <table-component
-        v-if="showingTable"
-        :header="headerDates"
-        :data="tableData"
-        :title="titles.incomeTable"
-      />
+        </div>
+        <div class="wrapper mx-4">
+          <label class="wrapper__label label">{{ $t('categories') }}</label>
+          <v-select class="w-72" v-model="checkedCategories" multiple label="name" :options="categories" />
+        </div>
+        <div class="form__wrapper">
+          <label class="form__label label">{{ $t('amountType') }}</label>
+          <v-select
+            class="w-72"
+            multiple
+            :reduce="(amountType) => amountType.id"
+            v-model="amountTypeIds"
+            :options="amountTypes"
+          />
+        </div>
+        <button @click="clearTable" class="btn btn-danger ml-auto">
+          {{ $t('btn.clear') }}
+        </button>
+        <button @click="generateTable" class="btn btn-primary ml-4">
+          {{ $t('btn.submit') }}
+        </button>
+      </filter-component>
+      <table-component v-if="showingTable" :header="headerDates" :data="tableData" :title="$t('incomeTable')" />
     </div>
   </main>
 </template>
 
 <script>
-import CategoryDialogComponent from '@/components/dialogs/CategoryDialogComponent'
-import TransactionDialogComponent from '@/components/dialogs/TransactionDialogComponent'
-import DialogComponent from '@/components/ui/Dialog/DialogComponent'
+import FilterComponent from '@/components/common/FilterComponent'
 
 export default {
   name: 'HomeView',
   components: {
-    CategoryDialogComponent,
-    TransactionDialogComponent,
-    DialogComponent,
+    FilterComponent,
   },
 }
 </script>
 
 <script setup>
-import { ref } from 'vue'
-import titles from '@/mocks/titles'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { getData } from '@/helpers/localStorage'
 import { generateDatesRange, generateTableData } from '@/helpers/table'
 
+const store = useStore()
 const showingTable = ref(false)
-const showingCategoryDialog = ref(false)
-const showingTransactionDialog = ref(false)
 const showTable = () => (showingTable.value = true)
-const openCategoryDialog = () => (showingCategoryDialog.value = true)
-const closeCategoryDialog = () => (showingCategoryDialog.value = false)
-const openTransactionDialog = () => (showingTransactionDialog.value = true)
-const closeTransactionDialog = () => (showingTransactionDialog.value = false)
+const hideTable = () => (showingTable.value = false)
 
 const dateRange = ref(null)
+const amountTypeIds = ref(null)
 const tableData = ref([])
+const amountTypes = ref([])
 const headerDates = ref()
 const fullDates = ref([])
-const categories = ref([])
+const categories = computed(() => store.getters['categories/allCategories'])
 const checkedCategories = ref([])
-
 const transactions = ref([])
 
-const getCategories = () => (categories.value = getData('categories'))
+const getCategories = () => {
+  store.dispatch('categories/getCategories')
+}
 const getTransactions = () => (transactions.value = getData('transactions'))
+const getAmountTypes = () => (amountTypes.value = getData('amountTypes'))
 
-const getDatesInRange = (dates) => {
+const generateTable = () => {
+  getCategories()
+  getTransactions()
+
   const { generatedFullDates, generatedHeaderDates } = generateDatesRange(
     {
-      startDate: dates[0],
-      endDate: dates[1],
+      startDate: dateRange.value[0],
+      endDate: dateRange.value[1],
     },
     'Name'
   )
@@ -129,30 +92,23 @@ const getDatesInRange = (dates) => {
   fullDates.value = generatedFullDates
   headerDates.value = generatedHeaderDates
 
-  dateRange.value = dates
-
-  tableData.value = generateTableData(
-    checkedCategories,
-    fullDates,
-    transactions
-  )
+  tableData.value = generateTableData(checkedCategories, fullDates, transactions)
 
   showTable()
+}
+
+const clearTable = () => {
+  hideTable()
+
+  dateRange.value = null
+  checkedCategories.value = []
 }
 
 getCategories()
 
 getTransactions()
 
-const closeAfterCreateCategory = () => {
-  closeCategoryDialog()
-  getCategories()
-}
-
-const closeAfterCreateTransaction = () => {
-  closeTransactionDialog()
-  getTransactions()
-}
+getAmountTypes()
 </script>
 
 <style lang="scss"></style>

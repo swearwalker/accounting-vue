@@ -1,23 +1,16 @@
 <template>
   <form @submit.prevent class="form flex flex-col w-96 p-4">
-    <input-component
-      :label="titles.name"
-      v-model="category.name"
-      class="mb-4"
-    />
+    <input-component :label="$t('name')" v-model="category.name" class="mb-4" />
     <div class="form__wrapper mb-4">
-      <label class="form__label label">{{ titles.category }}</label>
-      <drop-down-component
-        :items="transactionTypes"
-        :value="category.transactionTypeId"
-        @change="setTransactionTypeId"
+      <label class="form__label label">{{ $t('transactions') }}</label>
+      <v-select
+        :reduce="(transactionType) => transactionType.id"
+        v-model="category.transactionTypeId"
+        :options="transactionTypes"
       />
     </div>
-    <button
-      @click="createCategory"
-      class="form__btn btn btn-primary self-end bg-blue-500"
-    >
-      {{ titles.btn.create }}
+    <button @click="createCategory" class="form__btn btn btn-primary self-end bg-blue-500">
+      {{ $t('btn.create') }}
     </button>
   </form>
 </template>
@@ -30,13 +23,11 @@ export default {
 
 <script setup>
 import { defineEmits } from 'vue'
-import titles from '@/mocks/titles'
 import CategoryDialog from '@/components/dialogs/CategoryDialog'
 
 const emits = defineEmits(['close'])
 
-const { category, setTransactionTypeId, createCategory, transactionTypes } =
-  CategoryDialog(emits)
+const { category, createCategory, transactionTypes } = CategoryDialog(emits)
 </script>
 
 <style scoped lang="scss">

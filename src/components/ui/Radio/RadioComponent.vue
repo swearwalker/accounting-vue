@@ -1,11 +1,6 @@
 <template>
   <div class="wrapper flex items-center">
-    <input
-      type="radio"
-      :value="props.value"
-      @input="changeModelValue"
-      class="form__input input"
-    />
+    <input type="radio" :value="props.value" @input="changeModelValue" class="form__input input" />
     <label class="form__label label ml-4">{{ props.label }}</label>
   </div>
 </template>

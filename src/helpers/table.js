@@ -9,13 +9,11 @@ export function generateDatesRange({ startDate, endDate }, firstHeaderCol) {
 
   while (currentDate <= endDate) {
     generatedFullDates.push(new Date(currentDate))
+
     generatedHeaderDates.push(
-      `${new Date(currentDate).getDate()} ${currentDate.toLocaleString(
-        'default',
-        {
-          month: 'short',
-        }
-      )}`
+      `${new Date(currentDate).getDate()} ${currentDate.toLocaleString('default', {
+        month: 'short',
+      })}`
     )
     currentDate.setDate(currentDate.getDate() + 1)
   }
@@ -32,16 +30,19 @@ export function generateDatesRange({ startDate, endDate }, firstHeaderCol) {
 
 export function generateTableData(rows, dates, data) {
   const generatedTableData = []
+
   rows.value.forEach((row) => {
     const newRows = []
     const filteredData = data.value.filter((item) => item.categoryId === row.id)
+
     newRows.push(row.name)
+
     dates.value.forEach((date) => {
-      const newItem = filteredData.find(
-        (item) => formatDate(item.date) === formatDate(date)
-      )
+      const newItem = filteredData.find((item) => formatDate(item.date) === formatDate(date))
+
       newRows.push(newItem ? newItem.amount : 0)
     })
+
     generatedTableData.push(newRows)
   })
 

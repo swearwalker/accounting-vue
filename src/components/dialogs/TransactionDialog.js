@@ -14,14 +14,6 @@ export default (emits) => {
   }
   const transaction = ref(defaultTransaction)
 
-  const setCategoryId = (item) => {
-    transaction.value.categoryId = item.id
-  }
-
-  const setAmountTypeId = (item) => {
-    transaction.value.amountTypeId = item.id
-  }
-
   const categories = getData('categories')
 
   const amountTypes = getData('amountTypes')
@@ -38,8 +30,6 @@ export default (emits) => {
     transaction,
     categories,
     amountTypes,
-    setCategoryId,
-    setAmountTypeId,
     createTransaction,
   }
 }
