@@ -5,16 +5,18 @@
       <btn-component :title="$t('transaction')" icon="fa-solid fa-plus" @click="openTransactionDialog" />
     </div>
   </header>
-  <dialog-component :title="$t('dialog.category.create')" v-if="showingCategoryDialog" @close="closeCategoryDialog">
-    <CategoryDialogComponent @close="closeCategoryDialog" />
-  </dialog-component>
-  <dialog-component
-    :title="$t('dialog.transaction.create')"
-    v-if="showingTransactionDialog"
-    @close="closeTransactionDialog"
-  >
-    <TransactionDialogComponent @close="closeTransactionDialog" />
-  </dialog-component>
+  <Teleport to="body">
+    <dialog-component :title="$t('dialog.category.create')" v-if="showingCategoryDialog" @close="closeCategoryDialog">
+      <CategoryDialogComponent @close="closeCategoryDialog" />
+    </dialog-component>
+    <dialog-component
+      :title="$t('dialog.transaction.create')"
+      v-if="showingTransactionDialog"
+      @close="closeTransactionDialog"
+    >
+      <TransactionDialogComponent @close="closeTransactionDialog" />
+    </dialog-component>
+  </Teleport>
 </template>
 
 <script>
