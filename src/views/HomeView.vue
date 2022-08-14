@@ -15,13 +15,7 @@
         </div>
         <div class="wrapper mx-4">
           <label class="wrapper__label label">{{ $t('categories') }}</label>
-          <v-select
-            class="w-72"
-            v-model="checkedCategories"
-            multiple
-            label="name"
-            :options="categories"
-          />
+          <v-select class="w-72" v-model="checkedCategories" multiple label="name" :options="categories" />
         </div>
         <div class="form__wrapper">
           <label class="form__label label">{{ $t('amountType') }}</label>
@@ -40,12 +34,7 @@
           {{ $t('btn.submit') }}
         </button>
       </filter-component>
-      <table-component
-        v-if="showingTable"
-        :header="headerDates"
-        :data="tableData"
-        :title="$t('incomeTable')"
-      />
+      <table-component v-if="showingTable" :header="headerDates" :data="tableData" :title="$t('incomeTable')" />
     </div>
   </main>
 </template>
@@ -103,11 +92,7 @@ const generateTable = () => {
   fullDates.value = generatedFullDates
   headerDates.value = generatedHeaderDates
 
-  tableData.value = generateTableData(
-    checkedCategories,
-    fullDates,
-    transactions
-  )
+  tableData.value = generateTableData(checkedCategories, fullDates, transactions)
 
   showTable()
 }

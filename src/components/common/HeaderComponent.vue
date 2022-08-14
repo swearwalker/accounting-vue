@@ -1,25 +1,15 @@
 <template>
   <header class="header bg-white w-full px-4 py-2 shadow fixed top-0 z-30">
     <div class="container flex items-center">
-      <button
-        @click="openCategoryDialog"
-        class="btn btn-primary self-end bg-blue-500 mr-4"
-      >
+      <button @click="openCategoryDialog" class="btn btn-primary self-end bg-blue-500 mr-4">
         {{ $t('category') }}
       </button>
-      <button
-        @click="openTransactionDialog"
-        class="btn btn-primary self-end bg-blue-500"
-      >
+      <button @click="openTransactionDialog" class="btn btn-primary self-end bg-blue-500">
         {{ $t('transaction') }}
       </button>
     </div>
   </header>
-  <dialog-component
-    :title="$t('dialog.category.create')"
-    v-if="showingCategoryDialog"
-    @close="closeCategoryDialog"
-  >
+  <dialog-component :title="$t('dialog.category.create')" v-if="showingCategoryDialog" @close="closeCategoryDialog">
     <CategoryDialogComponent @close="closeCategoryDialog" />
   </dialog-component>
   <dialog-component

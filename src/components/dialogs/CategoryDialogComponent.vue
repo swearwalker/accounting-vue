@@ -9,10 +9,7 @@
         :options="transactionTypes"
       />
     </div>
-    <button
-      @click="createCategory"
-      class="form__btn btn btn-primary self-end bg-blue-500"
-    >
+    <button @click="createCategory" class="form__btn btn btn-primary self-end bg-blue-500">
       {{ $t('btn.create') }}
     </button>
   </form>

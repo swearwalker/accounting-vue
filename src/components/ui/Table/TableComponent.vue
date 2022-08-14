@@ -1,27 +1,17 @@
 <template>
   <div class="wrapper flex flex-col w-full">
     <h2 class="title text-2xl font-bold mb-2">{{ props.title }}</h2>
-    <table
-      class="acc-table table-fixed border-collapse overflow-x-auto block w-full"
-    >
+    <table class="acc-table table-fixed border-collapse overflow-x-auto block w-full">
       <thead class="acc-table__header">
         <tr class="acc-table__row">
-          <th
-            v-for="(headerItem, index) in header"
-            :key="index + headerItem"
-            class="acc-table__cell border"
-          >
+          <th v-for="(headerItem, index) in header" :key="index + headerItem" class="acc-table__cell border">
             {{ headerItem }}
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in data" :key="index">
-          <td
-            v-for="(subItem, subIndex) in item"
-            :key="index * subIndex"
-            class="border"
-          >
+          <td v-for="(subItem, subIndex) in item" :key="index * subIndex" class="border">
             {{ subItem }}
           </td>
         </tr>

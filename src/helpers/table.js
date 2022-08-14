@@ -11,12 +11,9 @@ export function generateDatesRange({ startDate, endDate }, firstHeaderCol) {
     generatedFullDates.push(new Date(currentDate))
 
     generatedHeaderDates.push(
-      `${new Date(currentDate).getDate()} ${currentDate.toLocaleString(
-        'default',
-        {
-          month: 'short',
-        }
-      )}`
+      `${new Date(currentDate).getDate()} ${currentDate.toLocaleString('default', {
+        month: 'short',
+      })}`
     )
     currentDate.setDate(currentDate.getDate() + 1)
   }
@@ -41,9 +38,7 @@ export function generateTableData(rows, dates, data) {
     newRows.push(row.name)
 
     dates.value.forEach((date) => {
-      const newItem = filteredData.find(
-        (item) => formatDate(item.date) === formatDate(date)
-      )
+      const newItem = filteredData.find((item) => formatDate(item.date) === formatDate(date))
 
       newRows.push(newItem ? newItem.amount : 0)
     })

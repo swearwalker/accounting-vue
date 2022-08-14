@@ -1,19 +1,14 @@
 <template>
   <div v-click-outside="closeMenu" class="drop-down relative">
     <button @click="toggleMenu" class="drop-down__btn">
-      <span class="drop-down__label">{{
-        props.static ? props.label : currentLabel[props.label]
-      }}</span>
+      <span class="drop-down__label">{{ props.static ? props.label : currentLabel[props.label] }}</span>
       <font-awesome-icon
         icon="fa-solid fa-angle-down"
         class="drop-down__icon text-blue-500 cursor-pointer"
         :class="{ 'rotate-180': show }"
       />
     </button>
-    <ul
-      v-if="items.length > 0 && show && !$slots.default"
-      class="drop-down__list"
-    >
+    <ul v-if="items.length > 0 && show && !$slots.default" class="drop-down__list">
       <li
         v-for="(item, index) in items"
         @click="changeValue(item)"
@@ -25,11 +20,7 @@
     </ul>
     <div v-else-if="$slots.default && show" class="drop-down__content">
       <slot />
-      <button
-        v-if="props.closeBtn"
-        @click="closeMenu"
-        class="btn btn-primary w-full"
-      >
+      <button v-if="props.closeBtn" @click="closeMenu" class="btn btn-primary w-full">
         {{ $t('btn.submit') }}
       </button>
     </div>
@@ -71,10 +62,7 @@ const props = defineProps({
 })
 const emits = defineEmits(['change'])
 
-const { show, currentLabel, toggleMenu, closeMenu, changeValue } = DropDown(
-  props,
-  emits
-)
+const { show, currentLabel, toggleMenu, closeMenu, changeValue } = DropDown(props, emits)
 </script>
 
 <style scoped lang="scss"></style>

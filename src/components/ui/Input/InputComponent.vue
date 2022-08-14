@@ -1,12 +1,7 @@
 <template>
   <div class="wrapper flex flex-col">
     <label class="form__label label">{{ props.label }}</label>
-    <input
-      :type="type"
-      :value="props.modelValue"
-      @input="changeModelValue"
-      class="form__input input"
-    />
+    <input :type="type" :value="props.modelValue" @input="changeModelValue" class="form__input input" />
   </div>
 </template>
 
@@ -30,11 +25,10 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
-const changeModelValue = (event) =>
-  emits(
-    'update:modelValue',
-    props.type === 'number' ? Number(event.target.value) : event.target.value
-  )
+const changeModelValue = (event) => {
+  const value = props.type === 'number' ? Number(event.target.value) : event.target.value
+  emits('update:modelValue', value)
+}
 </script>
 
 <style scoped lang="scss"></style>
