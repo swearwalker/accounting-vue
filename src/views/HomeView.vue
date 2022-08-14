@@ -2,6 +2,14 @@
   <main class="main">
     <div class="container">
       <filter-component class="flex items-end mb-16">
+        <select-component
+          v-model="checkedCategories"
+          class="w-full mb-4"
+          :title="$t('categories')"
+          multiple
+          label="name"
+          :options="categories"
+        />
         <div class="wrapper">
           <label class="wrapper__label label">{{ $t('dateRange') }}</label>
           <date-picker-component
@@ -13,20 +21,22 @@
             format="MM/dd/yyyy"
           />
         </div>
-        <div class="wrapper mx-4">
-          <label class="wrapper__label label">{{ $t('categories') }}</label>
-          <v-select class="w-64" v-model="checkedCategories" multiple label="name" :options="categories" />
-        </div>
-        <div class="form__wrapper">
-          <label class="form__label label">{{ $t('amountType') }}</label>
-          <v-select
-            class="w-64"
-            multiple
-            :reduce="(amountType) => amountType.id"
-            v-model="amountTypeIds"
-            :options="amountTypes"
-          />
-        </div>
+        <select-component
+          v-model="amountTypeIds"
+          class="w-64 mx-4"
+          :title="$t('amountType')"
+          :reduce="(amountType) => amountType.id"
+          multiple
+          :options="amountTypes"
+        />
+        <select-component
+          v-model="transactionTypeIds"
+          class="w-64"
+          :title="$t('transactionType')"
+          :reduce="(transactionType) => transactionType.id"
+          multiple
+          :options="transactionTypes"
+        />
         <btn-component
           class="ml-auto mr-4"
           :title="$t('btn.clear')"
@@ -64,6 +74,7 @@ const hideTable = () => (showingTable.value = false)
 
 const dateRange = ref(null)
 const amountTypeIds = ref(null)
+const transactionTypeIds = ref(null)
 const tableData = ref(null)
 const headerDates = ref()
 const fullDates = ref(null)
@@ -71,6 +82,7 @@ const checkedCategories = ref(null)
 const categories = computed(() => store.getters['categories/allCategories'])
 const transactions = computed(() => store.getters['transactions/allTransactions'])
 const amountTypes = computed(() => store.getters['amountTypes/allAmountTypes'])
+const transactionTypes = computed(() => store.getters['transactionTypes/allTransactionTypes'])
 
 const getCategories = () => store.dispatch('categories/getCategories')
 const getTransactions = () => store.dispatch('transactions/getTransactions')

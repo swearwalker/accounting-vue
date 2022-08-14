@@ -1,14 +1,13 @@
 <template>
   <form @submit.prevent class="form flex flex-col w-96 p-4">
     <input-component :label="$t('name')" v-model="category.name" class="mb-4" />
-    <div class="form__wrapper mb-4">
-      <label class="form__label label">{{ $t('transactions') }}</label>
-      <v-select
-        :reduce="(transactionType) => transactionType.id"
-        v-model="category.transactionTypeId"
-        :options="transactionTypes"
-      />
-    </div>
+    <select-component
+      v-model="category.transactionTypeId"
+      class="mb-4"
+      :title="$t('transactionType')"
+      :reduce="(transactionType) => transactionType.id"
+      :options="transactionTypes"
+    />
     <btn-component class="self-end" :title="$t('btn.create')" icon="fa-solid fa-check" @click="createCategory" />
   </form>
 </template>
