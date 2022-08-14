@@ -1,9 +1,11 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { useToast } from 'vue-toastification'
 import { getData, setData } from '@/helpers/localStorage'
 import generateId from '@/helpers/generateId'
 
 export default (emits) => {
+  const store = useStore()
   const toast = useToast()
   const defaultTransaction = {
     id: generateId(),
@@ -14,12 +16,12 @@ export default (emits) => {
   }
   const transaction = ref(defaultTransaction)
 
-  const categories = getData('categories')
-
-  const amountTypes = getData('amountTypes')
+  const categories = computed(() => store.getters['categories/allCategories'])
+  const amountTypes = computed(() => store.getters['amountTypes/allAmountTypes'])
 
   const createTransaction = () => {
     const transactions = getData('transactions')
+
     transactions.push(transaction.value)
     setData('transactions', transactions)
     emits('close')

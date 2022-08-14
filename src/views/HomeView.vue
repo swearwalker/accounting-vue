@@ -55,7 +55,6 @@ export default {
 <script setup>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import { getData } from '@/helpers/localStorage'
 import { generateDatesRange, generateTableData } from '@/helpers/table'
 
 const store = useStore()
@@ -66,18 +65,17 @@ const hideTable = () => (showingTable.value = false)
 const dateRange = ref(null)
 const amountTypeIds = ref(null)
 const tableData = ref(null)
-const amountTypes = ref(null)
 const headerDates = ref()
 const fullDates = ref(null)
-const categories = computed(() => store.getters['categories/allCategories'])
 const checkedCategories = ref(null)
-const transactions = ref(null)
+const categories = computed(() => store.getters['categories/allCategories'])
+const transactions = computed(() => store.getters['transactions/allTransactions'])
+const amountTypes = computed(() => store.getters['amountTypes/allAmountTypes'])
 
-const getCategories = () => {
-  store.dispatch('categories/getCategories')
-}
-const getTransactions = () => (transactions.value = getData('transactions'))
-const getAmountTypes = () => (amountTypes.value = getData('amountTypes'))
+const getCategories = () => store.dispatch('categories/getCategories')
+const getTransactions = () => store.dispatch('transactions/getTransactions')
+const getAmountTypes = () => store.dispatch('amountTypes/getAmountTypes')
+const getTransactionTypes = () => store.dispatch('transactionTypes/getTransactionTypes')
 
 const generateTable = () => {
   getCategories()
@@ -93,7 +91,6 @@ const generateTable = () => {
 
   fullDates.value = generatedFullDates
   headerDates.value = generatedHeaderDates
-
   tableData.value = generateTableData(checkedCategories, fullDates, transactions)
 
   showTable()
@@ -108,10 +105,9 @@ const clearTable = () => {
 }
 
 getCategories()
-
 getTransactions()
-
 getAmountTypes()
+getTransactionTypes()
 </script>
 
 <style lang="scss"></style>
