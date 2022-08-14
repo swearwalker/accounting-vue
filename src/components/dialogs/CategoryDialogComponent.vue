@@ -9,9 +9,7 @@
         :options="transactionTypes"
       />
     </div>
-    <button @click="createCategory" class="form__btn btn btn-primary self-end bg-blue-500">
-      {{ $t('btn.create') }}
-    </button>
+    <btn-component class="self-end" :title="$t('btn.create')" icon="fa-solid fa-check" @click="createCategory" />
   </form>
 </template>
 

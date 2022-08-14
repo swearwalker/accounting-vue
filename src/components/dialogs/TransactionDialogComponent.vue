@@ -18,9 +18,7 @@
       <label class="form__label label">{{ $t('date') }}</label>
       <date-picker-component :enable-time-picker="false" auto-apply v-model="transaction.date" format="MM/dd/yyyy" />
     </div>
-    <button @click="createTransaction" class="form__btn btn btn-primary self-end bg-blue-500">
-      {{ $t('btn.create') }}
-    </button>
+    <btn-component class="self-end" :title="$t('btn.create')" icon="fa-solid fa-check" @click="createTransaction" />
   </form>
 </template>
 

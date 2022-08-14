@@ -15,24 +15,26 @@
         </div>
         <div class="wrapper mx-4">
           <label class="wrapper__label label">{{ $t('categories') }}</label>
-          <v-select class="w-72" v-model="checkedCategories" multiple label="name" :options="categories" />
+          <v-select class="w-64" v-model="checkedCategories" multiple label="name" :options="categories" />
         </div>
         <div class="form__wrapper">
           <label class="form__label label">{{ $t('amountType') }}</label>
           <v-select
-            class="w-72"
+            class="w-64"
             multiple
             :reduce="(amountType) => amountType.id"
             v-model="amountTypeIds"
             :options="amountTypes"
           />
         </div>
-        <button @click="clearTable" class="btn btn-danger ml-auto">
-          {{ $t('btn.clear') }}
-        </button>
-        <button @click="generateTable" class="btn btn-primary ml-4">
-          {{ $t('btn.submit') }}
-        </button>
+        <btn-component
+          class="ml-auto mr-4"
+          :title="$t('btn.clear')"
+          color="danger"
+          icon="fa-solid fa-xmark"
+          @click="clearTable"
+        />
+        <btn-component :title="$t('btn.submit')" icon="fa-solid fa-check" @click="generateTable" />
       </filter-component>
       <table-component v-if="showingTable" :header="headerDates" :data="tableData" :title="$t('incomeTable')" />
     </div>
@@ -63,13 +65,13 @@ const hideTable = () => (showingTable.value = false)
 
 const dateRange = ref(null)
 const amountTypeIds = ref(null)
-const tableData = ref([])
-const amountTypes = ref([])
+const tableData = ref(null)
+const amountTypes = ref(null)
 const headerDates = ref()
-const fullDates = ref([])
+const fullDates = ref(null)
 const categories = computed(() => store.getters['categories/allCategories'])
-const checkedCategories = ref([])
-const transactions = ref([])
+const checkedCategories = ref(null)
+const transactions = ref(null)
 
 const getCategories = () => {
   store.dispatch('categories/getCategories')
@@ -101,7 +103,8 @@ const clearTable = () => {
   hideTable()
 
   dateRange.value = null
-  checkedCategories.value = []
+  checkedCategories.value = null
+  amountTypeIds.value = null
 }
 
 getCategories()

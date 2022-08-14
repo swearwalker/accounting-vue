@@ -9,6 +9,7 @@ import en from '@/locales/en'
 import Toast from 'vue-toastification'
 import Datepicker from '@vuepic/vue-datepicker'
 import vSelect from 'vue-select'
+import BtnComponent from '@/components/ui/Btn/BtnComponent'
 import DialogComponent from '@/components/ui/Dialog/DialogComponent'
 import DropDownComponent from '@/components/ui/DropDown/DropDownComponent'
 import InputComponent from '@/components/ui/Input/InputComponent'
@@ -19,7 +20,7 @@ import ClickOutside from '@/directives/click-outside'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faXmark, faAngleDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faXmark, faAngleDown, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import 'vue-toastification/dist/index.css'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -36,8 +37,9 @@ const i18n = createI18n({
   },
 })
 
-library.add(faXmark, faAngleDown, faPlus)
+library.add(faXmark, faAngleDown, faPlus, faCheck)
 
+app.component('btn-component', BtnComponent)
 app.component('dialog-component', DialogComponent)
 app.component('drop-down-component', DropDownComponent)
 app.component('input-component', InputComponent)
