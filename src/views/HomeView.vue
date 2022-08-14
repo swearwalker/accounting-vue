@@ -1,52 +1,50 @@
 <template>
   <main class="main">
     <div class="container">
-      <filter-component class="flex items-center mb-16">
-        <date-picker-component
-          class="w-72 mr-4"
-          :enable-time-picker="false"
-          auto-apply
-          range
-          v-model="dateRange"
-          format="MM/dd/yyyy"
-        />
-        <drop-down-component
-          class="w-72"
-          close-btn
-          static
-          :label="titles.categories"
-        >
-          <ul class="list w-full mb-2">
-            <li
-              v-for="category in categories"
-              :key="category.id"
-              class="list__item px-2 py-1 flex items-center cursor-pointer hover:bg-blue-500 hover:text-white rounded-md"
-            >
-              <input
-                :id="category.id"
-                type="checkbox"
-                :value="category"
-                v-model="checkedCategories"
-                class="mr-2 cursor-pointer"
-              />
-              <label
-                :for="category.id"
-                class="list__label flex-1 cursor-pointer"
-              >
-                {{ category.name }}
-              </label>
-            </li>
-          </ul>
-        </drop-down-component>
-        <button @click="generateTable" class="btn btn-primary ml-auto">
-          {{ titles.btn.submit }}
+      <filter-component class="flex items-end mb-16">
+        <div class="wrapper">
+          <label class="wrapper__label label">{{ $t('dateRange') }}</label>
+          <date-picker-component
+            class="w-72"
+            :enable-time-picker="false"
+            auto-apply
+            range
+            v-model="dateRange"
+            format="MM/dd/yyyy"
+          />
+        </div>
+        <div class="wrapper mx-4">
+          <label class="wrapper__label label">{{ $t('categories') }}</label>
+          <v-select
+            class="w-72"
+            v-model="checkedCategories"
+            multiple
+            label="name"
+            :options="categories"
+          />
+        </div>
+        <div class="form__wrapper">
+          <label class="form__label label">{{ $t('amountType') }}</label>
+          <v-select
+            class="w-72"
+            multiple
+            :reduce="(amountType) => amountType.id"
+            v-model="amountTypeIds"
+            :options="amountTypes"
+          />
+        </div>
+        <button @click="clearTable" class="btn btn-danger ml-auto">
+          {{ $t('btn.clear') }}
+        </button>
+        <button @click="generateTable" class="btn btn-primary ml-4">
+          {{ $t('btn.submit') }}
         </button>
       </filter-component>
       <table-component
         v-if="showingTable"
         :header="headerDates"
         :data="tableData"
-        :title="titles.incomeTable"
+        :title="$t('incomeTable')"
       />
     </div>
   </main>
@@ -64,25 +62,31 @@ export default {
 </script>
 
 <script setup>
-import { ref } from 'vue'
-import titles from '@/mocks/titles'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { getData } from '@/helpers/localStorage'
 import { generateDatesRange, generateTableData } from '@/helpers/table'
 
+const store = useStore()
 const showingTable = ref(false)
 const showTable = () => (showingTable.value = true)
+const hideTable = () => (showingTable.value = false)
 
 const dateRange = ref(null)
+const amountTypeIds = ref(null)
 const tableData = ref([])
+const amountTypes = ref([])
 const headerDates = ref()
 const fullDates = ref([])
-const categories = ref([])
+const categories = computed(() => store.getters['categories/allCategories'])
 const checkedCategories = ref([])
-
 const transactions = ref([])
 
-const getCategories = () => (categories.value = getData('categories'))
+const getCategories = () => {
+  store.dispatch('categories/getCategories')
+}
 const getTransactions = () => (transactions.value = getData('transactions'))
+const getAmountTypes = () => (amountTypes.value = getData('amountTypes'))
 
 const generateTable = () => {
   getCategories()
@@ -108,9 +112,18 @@ const generateTable = () => {
   showTable()
 }
 
+const clearTable = () => {
+  hideTable()
+
+  dateRange.value = null
+  checkedCategories.value = []
+}
+
 getCategories()
 
 getTransactions()
+
+getAmountTypes()
 </script>
 
 <style lang="scss"></style>

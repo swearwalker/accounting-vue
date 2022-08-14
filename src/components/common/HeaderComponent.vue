@@ -1,29 +1,29 @@
 <template>
-  <header class="header bg-white w-full h-12 px-4 py-2 shadow fixed top-0 z-30">
+  <header class="header bg-white w-full px-4 py-2 shadow fixed top-0 z-30">
     <div class="container flex items-center">
       <button
         @click="openCategoryDialog"
         class="btn btn-primary self-end bg-blue-500 mr-4"
       >
-        {{ titles.category }}
+        {{ $t('category') }}
       </button>
       <button
         @click="openTransactionDialog"
         class="btn btn-primary self-end bg-blue-500"
       >
-        {{ titles.transaction }}
+        {{ $t('transaction') }}
       </button>
     </div>
   </header>
   <dialog-component
-    :title="titles.dialog.category.create"
+    :title="$t('dialog.category.create')"
     v-if="showingCategoryDialog"
     @close="closeCategoryDialog"
   >
     <CategoryDialogComponent @close="closeCategoryDialog" />
   </dialog-component>
   <dialog-component
-    :title="titles.dialog.transaction.create"
+    :title="$t('dialog.transaction.create')"
     v-if="showingTransactionDialog"
     @close="closeTransactionDialog"
   >
@@ -46,7 +46,6 @@ export default {
 
 <script setup>
 import { ref } from 'vue'
-import titles from '@/mocks/titles'
 
 const showingCategoryDialog = ref(false)
 const showingTransactionDialog = ref(false)

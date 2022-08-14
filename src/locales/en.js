@@ -2,6 +2,7 @@ export default {
   name: 'Name',
   category: 'Category',
   date: 'Date',
+  dateRange: 'Range of dates',
   amount: 'Amount',
   categories: 'Categories',
   transactionType: 'Transaction Type',
@@ -12,6 +13,7 @@ export default {
   costTable: 'Cost table',
   btn: {
     submit: 'Submit',
+    clear: 'Clear',
     create: 'Create',
     cancel: 'Cancel',
     edit: 'Edit',

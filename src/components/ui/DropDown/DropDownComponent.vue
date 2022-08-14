@@ -30,7 +30,7 @@
         @click="closeMenu"
         class="btn btn-primary w-full"
       >
-        {{ titles.btn.submit }}
+        {{ $t('btn.submit') }}
       </button>
     </div>
   </div>
@@ -44,7 +44,6 @@ export default {
 
 <script setup>
 import { defineProps, defineEmits } from 'vue'
-import titles from '@/mocks/titles'
 
 import DropDown from '@/components/ui/DropDown/DropDown'
 
