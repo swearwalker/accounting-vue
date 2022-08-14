@@ -8,7 +8,7 @@ export default (emits) => {
   const defaultTransaction = {
     id: generateId(),
     date: new Date(),
-    amount: 0,
+    amount: '0',
     categoryId: null,
     amountTypeId: null,
   }

@@ -1,11 +1,15 @@
 .btn {
-  @apply px-4 py-2 rounded-md flex items-center justify-center shadow-md cursor-pointer;
+  @apply px-4 py-2 rounded-md flex items-center justify-center shadow-md cursor-pointer font-medium text-sm;
 
-  &-primary {
-    @apply bg-blue-500 text-white text-sm font-medium;
+  @each $name, $color in $colors {
+    &-#{$name} {
+      @apply text-white bg-#{$color}-500;
+    }
   }
 
-  &-danger {
-    @apply bg-red-500 text-white text-sm font-medium;
+  @each $name, $text, $px, $py in $sizes {
+    &-#{$name} {
+      @apply text-white font-medium text-#{$text} px-#{$px} py-#{$py};
+    }
   }
 }
