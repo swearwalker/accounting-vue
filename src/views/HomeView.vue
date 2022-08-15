@@ -11,7 +11,6 @@
           :options="categories"
         />
         <date-picker-component class="w-72" range v-model="dateRange" :title="$t('dateRange')" />
-        <input-component :label="$t('amount')" />
         <select-component
           v-model="amountTypeIds"
           class="w-64 mx-4"
@@ -19,13 +18,6 @@
           :reduce="(amountType) => amountType.id"
           multiple
           :options="amountTypes"
-        />
-        <select-component
-          v-model="transactionTypeIds"
-          class="w-64"
-          :title="$t('transactionType')"
-          :reduce="(transactionType) => transactionType.id"
-          :options="transactionTypes"
         />
         <select-component
           v-model="transactionTypeIds"
