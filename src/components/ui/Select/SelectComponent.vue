@@ -8,6 +8,7 @@
       :disabled="disabled"
       :multiple="multiple"
       :clearable="clearable"
+      :close-on-select="closeOnSelect"
       :searchable="searchable"
       :deselect-from-dropdown="deselectFromDropdown"
       :reduce="reduce"
@@ -44,6 +45,10 @@ defineProps({
   deselectFromDropdown: {
     type: Boolean,
     default: true,
+  },
+  closeOnSelect: {
+    type: Boolean,
+    default: false,
   },
   clearable: {
     type: Boolean,

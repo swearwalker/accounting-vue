@@ -171,11 +171,11 @@
   @apply fill-white cursor-pointer inline-flex ml-2 p-0 border-0 bg-none appearance-none;
 }
 .vs--single .vs__selected {
-  @apply bg-transparent border-transparent;
+  @apply bg-transparent text-black border-transparent pr-2 pl-0;
 }
 .vs--single.vs--loading .vs__selected,
 .vs--single.vs--open .vs__selected {
-  @apply absolute opacity-5;
+  @apply absolute opacity-100;
 }
 .vs--single.vs--searching .vs__selected {
   @apply hidden;
