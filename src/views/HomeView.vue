@@ -34,6 +34,13 @@
           class="w-64"
           :title="$t('transactionType')"
           :reduce="(transactionType) => transactionType.id"
+          :options="transactionTypes"
+        />
+        <select-component
+          v-model="transactionTypeIds"
+          class="w-64"
+          :title="$t('transactionType')"
+          :reduce="(transactionType) => transactionType.id"
           multiple
           :options="transactionTypes"
         />
