@@ -10,17 +10,8 @@
           label="name"
           :options="categories"
         />
-        <div class="wrapper">
-          <label class="wrapper__label label">{{ $t('dateRange') }}</label>
-          <date-picker-component
-            class="w-72"
-            :enable-time-picker="false"
-            auto-apply
-            range
-            v-model="dateRange"
-            format="MM/dd/yyyy"
-          />
-        </div>
+        <date-picker-component class="w-72" range v-model="dateRange" :title="$t('dateRange')" />
+        <input-component :label="$t('amount')" />
         <select-component
           v-model="amountTypeIds"
           class="w-64 mx-4"

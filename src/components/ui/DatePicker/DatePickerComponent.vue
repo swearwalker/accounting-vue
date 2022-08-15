@@ -1,31 +1,28 @@
 <template>
   <div class="wrapper flex flex-col">
     <label class="wrapper__label label">{{ title }}</label>
-    <v-select
-      class="wrapper__select w-full"
+    <date-picker
+      class="wrapper__date-picker w-full"
       :class="customClasses"
-      :label="label"
-      :disabled="disabled"
-      :multiple="multiple"
+      :format="format"
       :clearable="clearable"
-      :close-on-select="closeOnSelect"
-      :searchable="searchable"
-      :deselect-from-dropdown="deselectFromDropdown"
-      :reduce="reduce"
+      :disabled="disabled"
+      :auto-apply="autoApply"
+      :range="range"
+      :enable-time-picker="enableTimePicker"
       :modelValue="modelValue"
-      :options="options"
       @update:modelValue="updateValue"
     />
   </div>
 </template>
 
 <script>
-import vSelect from 'vue-select'
+import DatePicker from '@vuepic/vue-datepicker'
 
 export default {
-  name: 'SelectComponent',
+  name: 'DatePickerComponent',
   components: {
-    vSelect,
+    DatePicker,
   },
 }
 </script>
@@ -38,15 +35,15 @@ defineProps({
     type: String,
     required: false,
   },
-  multiple: {
+  range: {
     type: Boolean,
     default: false,
   },
-  deselectFromDropdown: {
+  autoApply: {
     type: Boolean,
-    default: true,
+    default: false,
   },
-  closeOnSelect: {
+  enableTimePicker: {
     type: Boolean,
     default: false,
   },
@@ -58,27 +55,15 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  searchable: {
-    type: Boolean,
-    default: false,
-  },
   customClasses: {
     type: String,
     default: 'center',
   },
-  label: {
+  format: {
     type: String,
-    default: 'label',
+    default: 'MM/dd/yyyy',
   },
   modelValue: {},
-  options: {
-    type: Array,
-    default: () => [],
-  },
-  reduce: {
-    type: Function,
-    default: (e) => e,
-  },
 })
 
 const emits = defineEmits(['update:modelValue'])

@@ -16,10 +16,7 @@
       :options="amountTypes"
       :reduce="(amountType) => amountType.id"
     />
-    <div class="form__wrapper mb-4">
-      <label class="form__label label">{{ $t('date') }}</label>
-      <date-picker-component :enable-time-picker="false" auto-apply v-model="transaction.date" format="MM/dd/yyyy" />
-    </div>
+    <date-picker-component v-model="transaction.date" :title="$t('date')" />
     <btn-component class="self-end" :title="$t('btn.create')" icon="fa-solid fa-check" @click="createTransaction" />
   </form>
 </template>
